@@ -45,7 +45,7 @@ class App extends Component {
 
   addBookmark = bookmark => {
     this.setState({
-      bookmarks: [...this.state.bookmarks, bookmark],
+      bookmarks: [ ...this.state.bookmarks, bookmark ],
     })
   }
 
@@ -77,7 +77,6 @@ class App extends Component {
           <Route
             path='/add-bookmark'
             render={({ history }) => {
-           
               return <AddBookmark
                 onAddBookmark={this.addBookmark}
                 onClickCancel={() => history.push('/')}
@@ -87,10 +86,9 @@ class App extends Component {
           <Route
             exact
             path='/'
-            render={() =>
-              <BookmarkList
-                bookmarks={bookmarks}
-              />}
+            render={({ history }) => {
+              return <BookmarkList bookmarks={bookmarks} />
+            }}
           />
         </div>
       </main>
