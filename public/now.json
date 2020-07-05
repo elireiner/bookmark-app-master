@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "alias": "https://elireiners-bookmarks-app.now.sh",
+    "alias": "elireiners-bookmarks-app",
     "name": "bookmarks-app",
     "routes": [
         { "handle": "filesystem" },
