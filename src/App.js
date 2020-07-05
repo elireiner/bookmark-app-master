@@ -43,7 +43,7 @@ class App extends Component {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
-        'Authorization': `Bearer ${config.API_KEY}`
+       // 'Authorization': `Bearer ${config.API_KEY}`
       }
     })
       .then(res => {
@@ -55,14 +55,14 @@ class App extends Component {
       .then(this.setBookmarks)
       .catch(error => this.setState({ error }))
   }
-  updateArticle = () => {};
+  updateBookmark = () => {};
 
   render() {
     const contextValue = {
       bookmarks: this.state.bookmarks,
       addBookmark: this.addBookmark,
       deleteBookmark: this.deleteBookmark,
-      updateArticle: this.updateArticle,
+      updateBookmark: this.updateBookmark,
     }
     return (
       <main className='App'>
