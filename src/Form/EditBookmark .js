@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import config from '../config';
+import PropTypes from 'prop-types';
 import BookmarksContext from '../BookmarksContext';
 
 const Required = () => (
@@ -7,8 +8,13 @@ const Required = () => (
 )
 
 class EditBookmark extends Component {
-    static defaultProps = {
-        bookmarks: []
+    static propTypes = {
+        match: PropTypes.shape({
+            params: PropTypes.object,
+        }),
+        history: PropTypes.shape({
+            push: PropTypes.func,
+        }).isRequired,
     };
 
     state = {
@@ -28,7 +34,8 @@ class EditBookmark extends Component {
             rating: rating.value,
         }
         this.setState({ error: null })
-        fetch(config.API_ENDPOINT, {
+        console.log(bookmark)
+        fetch(config.API_ENDPOINT + '/' + this.props.match.params.bookmarkId, {
             method: 'PATCH',
             body: JSON.stringify(bookmark),
             headers: {
@@ -45,10 +52,18 @@ class EditBookmark extends Component {
                     })
                 }
             })
+            .then(() => {
+                this.context.updateBookmark(bookmark)
+                this.props.history.push('/')
+              })
             .catch(error => {
                 this.setState({ error })
             })
     }
+
+    handleClickCancel = () => {
+        this.props.history.push('/')
+    };
 
     render() {
 
@@ -68,6 +83,10 @@ class EditBookmark extends Component {
                         <div className='EditBookmark__error' role='alert'>
                             {error && <p>{error.message}</p>}
                         </div>
+                        <input
+                            type='hidden'
+                            name='id'
+                        />
                         <div>
                             <label htmlFor='title'>
                                 Title
@@ -79,7 +98,7 @@ class EditBookmark extends Component {
                                 type='text'
                                 name='title'
                                 required
-                                value={title}
+                                defaultValue={title}
                             />
                         </div>
                         <div>
@@ -93,7 +112,7 @@ class EditBookmark extends Component {
                                 type='url'
                                 name='url'
                                 required
-                                value={url}
+                                defaultValue={url}
                             />
                         </div>
                         <div>
@@ -105,7 +124,7 @@ class EditBookmark extends Component {
                                 type='text'
                                 name='description'
                                 required
-                                value={description}
+                                defaultValue={description}
                             />
                         </div>
                         <div>
@@ -121,7 +140,7 @@ class EditBookmark extends Component {
                                 max="5"
                                 name='rating'
                                 required
-                                value={rating}
+                                defaultValue={rating}
                             />
                         </div>
                         <div className='EditBookmark__buttons'>
