@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
+import config from '../config';
+import BookmarksContext from '../BookmarksContext';
 
 class EditBookmark extends Component {
-    state = {
+    static defaultProps = {
+        bookmarks: []
+      };
+
+      static contextType = BookmarksContext;
+    /*state = {
         title: null,
         url: null,
         description: null,
@@ -10,9 +17,12 @@ class EditBookmark extends Component {
 
     componentDidMount() {
         const articleId = this.props.match.params.articleId;
-
-        fetch(`https://localhost:8000/api/articles/${articleId}`, {
-            method: 'GET'
+      fetch(config.API_ENDPOINT + articleId, {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+               // 'Authorization': `Bearer ${config.API_KEY}`
+              }
         })
         .then(res => {
             if (!res.ok) {
@@ -32,25 +42,26 @@ class EditBookmark extends Component {
             .catch(error => {
                 this.setState({ error })
               })
-    }
+    }*/
 
     /* state for inputs etc... */
     render() {
-        const { title, url, description, rating } = this.state
+        const { bookmarks } = this.context
+        const id = this.props.match.params.id
+        const { title, url, description, rating } = bookmarks[id -1]
         return (
             <section className='EditArticleForm'>
                 <h2>Edit article</h2>
                 {//on submit the info should be sent to the api
                 //populate the fields with the default data
                 }
-                <form>
+                <form onSubmit={this.handleSubmit}>
                     <input
                         id='title'
                         type='text'
                         name='title'
                         required
                         value={title}
-                        onChange={this.handleChangeTitle}
                     />
                     <input
                         id='url'
@@ -58,7 +69,6 @@ class EditBookmark extends Component {
                         name='url'
                         required
                         value={url}
-                    //  onChange={this.handleChangeTitle}
                     />
                     <input
                         id='description'
@@ -66,7 +76,6 @@ class EditBookmark extends Component {
                         name='description'
                         required
                         value={description}
-                    //  onChange={this.handleChangeTitle}
                     />
                     <input
                         id='rating'
@@ -76,7 +85,6 @@ class EditBookmark extends Component {
                         name='rating'
                         required
                         value={rating}
-                    // onChange={this.handleChangeTitle}
                     />
                 </form>
             </section>
