@@ -16,6 +16,8 @@ class App extends Component {
   };
 
   setBookmarks = bookmarks => {
+    bookmarks.forEach(bookmark => bookmark.rating = parseInt(bookmark.rating)) 
+    console.log(bookmarks)
     this.setState({
       bookmarks,
       error: null,
@@ -43,7 +45,7 @@ class App extends Component {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
-       // 'Authorization': `Bearer ${config.API_KEY}`
+        // 'Authorization': `Bearer ${config.API_KEY}`
       }
     })
       .then(res => {
@@ -55,8 +57,15 @@ class App extends Component {
       .then(this.setBookmarks)
       .catch(error => this.setState({ error }))
   }
-  updateBookmark = () => {};
 
+  updateBookmark = updatedBookmark => {
+    this.setState({
+      bookmarks: this.state.bookmarks.map(bm =>
+        (bm.id !== updatedBookmark.id) ? bm : updatedBookmark
+      )
+    })
+  }
+  
   render() {
     const contextValue = {
       bookmarks: this.state.bookmarks,
