@@ -19,10 +19,6 @@ function deleteBookmarkRequest(bookmarkId, callback) {
           throw error
         })
       }
-      return res.json()
-    })
-    .then(data => {
-      console.log({ data })
       callback(bookmarkId)
     })
     .catch(error => {
