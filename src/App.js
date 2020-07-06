@@ -25,13 +25,15 @@ class App extends Component {
   }
 
   addBookmark = bookmark => {
+    bookmark.rating = parseInt(bookmark.rating)
+    console.log('I was added: ' + bookmark.id)
     this.setState({
       bookmarks: [...this.state.bookmarks, bookmark],
     })
   }
 
   deleteBookmark = bookmarkId => {
-    console.log(bookmarkId)
+    console.log('I was deleted: ' + bookmarkId)
     const newBookmarks = this.state.bookmarks.filter(bm =>
       bm.id !== bookmarkId
     )
