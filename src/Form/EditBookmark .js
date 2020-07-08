@@ -36,12 +36,12 @@ class EditBookmark extends Component {
         }
         this.setState({ error: null })
         console.log(bookmark)
-        fetch(config.API_ENDPOINT + '/' + this.props.match.params.bookmarkId, {
+        fetch(config.API_ENDPOINT + this.props.match.params.bookmarkId, {
             method: 'PATCH',
             body: JSON.stringify(bookmark),
             headers: {
                 'content-type': 'application/json',
-                // 'authorization': `bearer ${config.API_KEY}`
+                'authorization': `bearer ${config.API_KEY}`
             }
         })
             .then(res => {
