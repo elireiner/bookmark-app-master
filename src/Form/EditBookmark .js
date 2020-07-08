@@ -71,7 +71,7 @@ class EditBookmark extends Component {
         const { bookmarks } = this.context
         if (bookmarks.length > 0) {
             const id = this.props.match.params.bookmarkId
-            const currentBookmark = bookmarks.filter(bm => bm.id === id)
+            const currentBookmark = bookmarks.filter(bm => bm.id === parseInt(id))
             const { title, url, description, rating } = currentBookmark[0]
             const { error } = this.state
 
