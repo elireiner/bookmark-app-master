@@ -28,7 +28,7 @@ class EditBookmark extends Component {
         // get the form fields from the event
         const { title, url, description, rating } = e.target
         const bookmark = {
-            id: parseInt(this.props.match.params.bookmarkId),
+            id: this.props.match.params.bookmarkId,
             title: title.value,
             url: url.value,
             description: description.value,
@@ -71,7 +71,7 @@ class EditBookmark extends Component {
         const { bookmarks } = this.context
         if (bookmarks.length > 0) {
             const id = this.props.match.params.bookmarkId
-            const currentBookmark = bookmarks.filter(bm => bm.id === parseInt(id))
+            const currentBookmark = bookmarks.filter(bm => bm.id === id)
             const { title, url, description, rating } = currentBookmark[0]
             const { error } = this.state
 
