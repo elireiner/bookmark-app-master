@@ -35,7 +35,6 @@ class EditBookmark extends Component {
             rating: parseInt(rating.value),
         }
         this.setState({ error: null })
-        console.log(bookmark)
         fetch(config.API_ENDPOINT + this.props.match.params.bookmarkId, {
             method: 'PATCH',
             body: JSON.stringify(bookmark),
