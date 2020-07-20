@@ -3,7 +3,7 @@ module.exports = function(app) {
   app.use(
     '/',
     createProxyMiddleware({
-      target: 'https://thinkful-list-api.herokuapp.com/v3/bookmarks/',
+      target: 'https://warm-refuge-96202.herokuapp.com/api/bookmarks/',
       changeOrigin: true,
     })
   );
