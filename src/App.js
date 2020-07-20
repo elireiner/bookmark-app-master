@@ -17,7 +17,6 @@ class App extends Component {
 
   setBookmarks = bookmarks => {
     bookmarks.forEach(bookmark => bookmark.rating = parseInt(bookmark.rating)) 
-    console.log(bookmarks)
     this.setState({
       bookmarks,
       error: null,
@@ -26,14 +25,12 @@ class App extends Component {
 
   addBookmark = bookmark => {
     bookmark.rating = parseInt(bookmark.rating)
-    console.log('I was added: ' + bookmark.id)
     this.setState({
       bookmarks: [...this.state.bookmarks, bookmark],
     })
   }
 
   deleteBookmark = bookmarkId => {
-    console.log('I was deleted: ' + bookmarkId)
     const newBookmarks = this.state.bookmarks.filter(bm =>
       bm.id !== bookmarkId
     )
@@ -92,11 +89,11 @@ class App extends Component {
               component={BookmarkList}
             />
 
-            {//<Route
-              //path='/edit/:bookmarkId'
-              //component={EditBookmark}
-            ///>
-          }
+            <Route
+              path='/edit/:bookmarkId'
+              component={EditBookmark}
+            />
+          
           </div>
         </BookmarksContext.Provider>
       </main>
