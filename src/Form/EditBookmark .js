@@ -28,7 +28,7 @@ class EditBookmark extends Component {
         // get the form fields from the event
         const { title, url, description, rating } = e.target
         const bookmark = {
-            id: this.props.match.params.bookmarkId,
+            id:  parseInt(this.props.match.params.bookmarkId),
             title: title.value,
             url: url.value,
             description: description.value,
@@ -70,16 +70,13 @@ class EditBookmark extends Component {
         const { bookmarks } = this.context
         if (bookmarks.length > 0) {
             const id = this.props.match.params.bookmarkId
-            const currentBookmark = bookmarks.filter(bm => bm.id === id)
-            const { title, url, description, rating } = currentBookmark[0]
+            const currentBookmark = bookmarks.filter(bm => bm.id === parseInt(id))[0]
+            const { title, url, description, rating } = currentBookmark
             const { error } = this.state
 
             return (
                 <section className='EditArticleForm'>
                     <h2>Edit article</h2>
-                    {//on submit the info should be sent to the api
-                        //populate the fields with the default data
-                    }
                     <form onSubmit={this.handleSubmit}>
                         <div className='EditBookmark__error' role='alert'>
                             {error && <p>{error.message}</p>}
